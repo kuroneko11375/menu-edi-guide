@@ -23,7 +23,7 @@ panels.forEach((p,i)=>{p.querySelectorAll('.tour-step').forEach((b,n)=>b.addEven
 const search=document.getElementById('faq-query'),questions=[...document.querySelectorAll('.faq details')],empty=document.getElementById('faq-empty');
 search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase();let count=0;questions.forEach(d=>{const found=d.textContent.toLocaleLowerCase().includes(q);d.hidden=!found;if(found)count++});empty.hidden=count!==0});
 const video=document.getElementById('demo-video');
-document.querySelectorAll('[data-seek]').forEach(b=>b.addEventListener('click',()=>{const time=Number(b.dataset.seek);const seek=()=>{video.currentTime=Math.min(time,video.duration||time);video.focus()};if(video.readyState>0)seek();else{video.addEventListener('loadedmetadata',seek,{once:true});video.load()}}));
+document.querySelectorAll('[data-seek]').forEach(b=>b.addEventListener('click',()=>{const time=Number(b.dataset.seek);const seek=()=>{video.currentTime=Math.min(time,video.duration||time);video.focus()};if(video.readyState>0)seek();else{video.preload='metadata';video.addEventListener('loadedmetadata',seek,{once:true});video.load()}}));
 const nav=[...document.querySelectorAll('.contents nav a')];
 if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting){nav.forEach(a=>{if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}}},{rootMargin:'-15% 0px -65% 0px'});document.querySelectorAll('main .section').forEach(s=>observer.observe(s))}
 // 語言切換保持目前章節，不儲存或傳送任何使用者資料。
